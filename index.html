@@ -1,0 +1,140 @@
+Here’s exactly how to create and upload your `index.html` on GitHub so your Reading Connections CRM works perfectly online:
+
+---
+
+### ✅ Step-by-Step: Create and Upload `index.html`
+
+1. **Go to your GitHub repository**
+   Example: `https://github.com/YourUsername/reading-connections-crm`
+
+2. **Click “Add file” → “Create new file.”**
+
+3. **Name the file:**
+
+   ```
+   index.html
+   ```
+
+4. **Paste the following code into the editor:**
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Reading Connections CRM</title>
+     <style>
+       body {font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; color: #333;}
+       header, footer {background: #1d3557; color: white; text-align: center; padding: 1rem;}
+       main {max-width: 800px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
+       input, select {width: 100%; max-width: 400px; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px;}
+       button {background: #457b9d; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer;}
+       button:hover {background: #1d3557;}
+       .message {font-weight: bold; margin-top: 1rem;}
+     </style>
+   </head>
+   <body>
+     <header>
+       <h1>Reading Connections CRM</h1>
+       <p>Lesson Scheduling and Payment Tracking System</p>
+     </header>
+
+     <main>
+       <h2>Sign Up</h2>
+       <form id="signup-form">
+         <input type="text" id="signup-name" placeholder="Full Name" required>
+         <input type="email" id="signup-email" placeholder="Email" required>
+         <input type="password" id="signup-password" placeholder="Password" required>
+         <select id="signup-role" required>
+           <option value="student">Student</option>
+           <option value="teacher">Teacher</option>
+           <option value="parent">Parent</option>
+         </select>
+         <button type="submit">Sign Up</button>
+       </form>
+
+       <h2>Login</h2>
+       <form id="login-form">
+         <input type="email" id="login-email" placeholder="Email" required>
+         <input type="password" id="login-password" placeholder="Password" required>
+         <button type="submit">Login</button>
+       </form>
+       <p id="message" class="message"></p>
+     </main>
+
+     <footer>
+       <p>&copy; 2025 Reading Connections Inc.</p>
+     </footer>
+
+     <script>
+       function getUsers() {
+         try {
+           return JSON.parse(localStorage.getItem('users')) || [];
+         } catch (e) {
+           localStorage.removeItem('users');
+           return [];
+         }
+       }
+
+       function saveUsers(users) {
+         localStorage.setItem('users', JSON.stringify(users));
+       }
+
+       document.getElementById('signup-form').addEventListener('submit', (e) => {
+         e.preventDefault();
+         const name = document.getElementById('signup-name').value.trim();
+         const email = document.getElementById('signup-email').value.trim().toLowerCase();
+         const password = document.getElementById('signup-password').value;
+         const role = document.getElementById('signup-role').value;
+
+         let users = getUsers();
+         if (users.some(u => u.email === email)) {
+           showMessage('Email already registered. Please log in.', 'red');
+           return;
+         }
+
+         users.push({ name, email, password, role });
+         saveUsers(users);
+         showMessage('Account created! You can now log in.', 'green');
+         e.target.reset();
+       });
+
+       document.getElementById('login-form').addEventListener('submit', (e) => {
+         e.preventDefault();
+         const email = document.getElementById('login-email').value.trim().toLowerCase();
+         const password = document.getElementById('login-password').value;
+         const users = getUsers();
+         const user = users.find(u => u.email === email && u.password === password);
+
+         if (user) {
+           localStorage.setItem('currentUser', JSON.stringify(user));
+           showMessage('Redirecting to dashboard...', 'green');
+           setTimeout(() => {
+             window.location.href = 'dashboard.html';
+           }, 1000);
+         } else {
+           showMessage('Invalid email or password.', 'red');
+         }
+       });
+
+       function showMessage(msg, color) {
+         const el = document.getElementById('message');
+         el.textContent = msg;
+         el.style.color = color;
+       }
+     </script>
+   </body>
+   </html>
+   ```
+
+5. **Scroll down and click the green “Commit changes” button.**
+
+6. Once this is done, repeat the same process for your `dashboard.html` file using the code from the previous instructions.
+
+---
+
+### 💡 Tip:
+
+Yes — you should create `index.html` **first**, because it’s the homepage your GitHub Pages site will automatically load.
+After that, create `dashboard.html` using the same steps.
