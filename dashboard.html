@@ -1,0 +1,63 @@
+Here’s exactly how to create your `dashboard.html` in GitHub so it works with your `index.html`:
+
+---
+
+### ✅ Step-by-Step to Add `dashboard.html` via Web Upload
+
+1. **Go to your GitHub repository**
+
+   * Example: `https://github.com/YourUsername/reading-connections-crm`
+
+2. **Click “Add file” → “Create new file.”**
+
+3. **Name the file:**
+   In the filename box, type:
+
+   ```
+   dashboard.html
+   ```
+
+4. **Paste the following code:**
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Reading Connections CRM Dashboard</title>
+     <style>
+       body {font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; color: #333;}
+       header, footer {background: #1d3557; color: white; text-align: center; padding: 1rem;}
+       main {max-width: 1000px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
+       button {background: #457b9d; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; margin-top: 1rem;}
+       button:hover {background: #1d3557;}
+       h2 {color: #1d3557;}
+     </style>
+   </head>
+   <body>
+     <header>
+       <h1>Welcome to Reading Connections CRM</h1>
+     </header>
+     <main>
+       <h2 id="welcome"></h2>
+       <p>You're now logged in. From here, you can manage lessons, view payments, and organize schedules.</p>
+       <button onclick="logout()">Logout</button>
+     </main>
+     <footer>
+       <p>&copy; 2025 Reading Connections Inc.</p>
+     </footer>
+     <script>
+       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+       if (!currentUser) {
+         window.location.href = 'index.html';
+       } else {
+         document.getElementById('welcome').textContent = `Hello, ${currentUser.name}! (${currentUser.role})`;
+       }
+       function logout() {
+         localStorage.removeItem('currentUser');
+         window.location.href = 'index.html';
+       }
+     </script>
+   </body>
+   </html>
